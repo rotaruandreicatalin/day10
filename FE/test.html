@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Exemplu Fetch în tabel</title>
+</head>
+
+<body>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Nume</th>
+                <th>Prenume</th>
+                <th>Varsta</th>
+                <th>Detalii</th> <!-- Coloana pentru butoanele de detalii -->
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <!-- Aici vor fi adăugate rândurile cu date -->
+        </tbody>
+    </table>
+
+    <div id="details-modal" style="display: none;">
+        <!-- Modal pentru afișarea detaliilor -->
+        <h2>Detalii Utilizator</h2>
+        <p><strong>Nume:</strong> <span id="modal-nume"></span></p>
+        <p><strong>Prenume:</strong> <span id="modal-prenume"></span></p>
+        <p><strong>Varsta:</strong> <span id="modal-varsta"></span></p>
+    </div>
+
+    <script>
+        function showDetails(nume, prenume, varsta) {
+            const modalNume = document.getElementById('modal-nume');
+            const modalPrenume = document.getElementById('modal-prenume');
+            const modalVarsta = document.getElementById('modal-varsta');
+
+            modalNume.textContent = nume;
+            modalPrenume.textContent = prenume;
+            modalVarsta.textContent = varsta;
+
+            // Afișăm modalul cu detaliile
+            const modal = document.getElementById('details-modal');
+            modal.style.display = 'block';
+        }
+
+        function hideDetails() {
+            // Ascundem modalul cu detaliile
+            const modal = document.getElementById('details-modal');
+            modal.style.display = 'none';
+        }
+
+        function createButtonWithDetails(user) {
+            const button = document.createElement('button');
+            button.textContent = 'Detalii';
+            button.addEventListener('click', () => {
+                showDetails(user.firstName, user.lastName, user.position);
+            });
+            return button;
+        }
+
+        function fetchDataAndPopulateTable() {
+            fetch('http://localhost:8080/employees/all')
+                .then(response => response.json())
+                .then(data => {
+                    // Curățăm tabelul de datele anterioare
+                    const tableBody = document.getElementById('table-body');
+                    tableBody.innerHTML = '';
+
+                    // Adăugăm datele noi în tabel
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                    <td>${item.firstName}</td>
+                    <td>${item.lastName}</td>
+                    <td>${item.position}</td>
+                `;
+                        const detailsButtonCell = document.createElement('td');
+                        const detailsButton = createButtonWithDetails(item);
+                        detailsButtonCell.appendChild(detailsButton);
+                        row.appendChild(detailsButtonCell);
+
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Eroare fetch:', error));
+        }
+
+        // Apelăm funcția pentru prima dată
+        fetchDataAndPopulateTable();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Raiffeisen - Allocation of the projects</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbarup">
+            <ul class="navup-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a class="active" href="#employees">Employees</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+        </nav>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="images/logo.png">
+            </div>
+
+            <ul class="nav-list">
+                <li><a href="#" id="seeAllEmployees">See All</a></li>
+                <li><a href="#" id="addEmployee">Add</a></li>
+                <li><a href="#">Raise salary</a></li>
+                <li><a href="#">Sort A-Z</a></li>
+            </ul>
+
+            <div class="rightNav">
+                <input type="number" oninput="this.value = this.value.slice(0, 6)" name="search" id="search"
+                    placeholder="Type employee id">
+                <button class="btn">Search</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="employee" id="employee">
+            <div class="employee-photo">
+                <img src="images/R.jpg">
+            </div>
+            <div class="employee-data">
+                <nav class="employee-data-back-button" id="employee-data-back-button">
+                    <button class="btn" id="employee-data-back-button">Back</button>
+                </nav>
+                <nav class="employee-info">
+                    <h1 id="employee-info-h1">asdasd</h1>
+                    <p id="employee-info-p">asdasd</p>
+                    <nav class="employee-buttons">
+                        <button onclick="showOption('update')" class="btn">Update</button>
+                        <button onclick="showOption('allocate')" class="btn">Allocate project</button>
+                        <button onclick="showOption('delete')" class="btn">Delete</button>
+                    </nav>
+                </nav>
+                <nav id="update" class="employee-options update">
+                    <nav>
+                        <label for="employee-options">Choose a column:</label>
+                        <select id="employee-options">
+                            <option value="first-name">First Name</option>
+                            <option value="last-name">Last Name</option>
+                            <option value="position">Position</option>
+                            <option value="salary">Salary</option>
+                            <option value="hire-date">Hire Date</option>
+                            <option value="email">Email</option>
+                        </select>
+                    </nav>
+                    <nav>
+                        <input type="text" placeholder="Type new data">
+                        <button class="btn">Update</button>
+                        <button onclick="hideOptions()" class="btn" id="cancel">Cancel</button>
+                    </nav>
+                </nav>
+                <nav id="allocate" class="employee-options">
+                    <input type="text" placeholder="Type the project id" id="project-id-to-allocate">
+                    <button onclick="allocateProject()" class="btn">Allocate</button>
+                    <button onclick="hideOptions()" class="btn" id="cancel">Cancel</button>
+                </nav>
+                <nav id="delete" class="employee-options">
+                    <p>Do you want to delete the employee?</p>
+                    <button onclick="deleteEmployee()" class="btn">Yes</button>
+                    <button onclick="hideOptions()" class="btn" id="cancel">No</button>
+                </nav>
+            </div>
+        </section>
+
+
+        <section class="employee-table-section" id="employee-table-section">
+            <table class="employee-table" id="employee-table">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Position</th>
+                        <th>Project</th>
+                        <th class="options">View</th>
+                    </tr>
+                </thead>
+                <tbody id="employee-table-body">
+                </tbody>
+            </table>
+        </section>
+
+        <section class="add-employee" id="add-employee">
+            <div class="add-employee-data">
+                    <h1>ADD EMPLOYEE</h1>
+                        <form id="add-employee-form">
+                            <input type="text" class="form-control" id="firstName" placeholder="first name" required>
+    
+                            <input type="text" class="form-control" id="lastName" placeholder="last name" required>
+    
+                            <input type="text" class="form-control" id="position" placeholder="position" required>
+                              
+                            <input type="email" class="form-control" id="email" placeholder="email" required>
+    
+                            <input type="text" class="form-control" id="hireDate" placeholder="hire date" onfocus="(this.type='date')"/>
+    
+                            <input type="number" class="form-control" id="salary" placeholder="salary" required>
+                            <button class="btn add-btn" type="submit">Add</button>
+                        </form>            
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p class="text-footer">
+            FrontEnd - BackEnd Project | Rotaru Andrei-Catalin
+        </p>
+        <div class="raiffeisen">Raiffeisen Bank Romania</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
